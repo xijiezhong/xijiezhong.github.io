@@ -44,9 +44,7 @@ body {
     display: table; }
   body:after {
     clear: both; }
-p {
-  text-indent: 2em;
-}
+
 /*
  * Foundation Icons v 3.0
  * Made by ZURB 2013 http://zurb.com/playground/foundation-icon-fonts-3
@@ -1701,5 +1699,5 @@ th, td {
   border: none;
 }
 pre {
-  font-family: 
+  font-family: 'entypo';
 }
