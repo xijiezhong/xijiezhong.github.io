@@ -1672,7 +1672,9 @@ input[type="tel"] {
     margin-bottom: .4em; } }
 
 /* add */
-P
+P {
+  text-indent: 2em;
+}
 table {
   border-collapse: collapse;
   width: 100%;
