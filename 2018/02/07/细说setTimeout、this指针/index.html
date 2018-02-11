@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      细说setTimeout、this指针 | 一笼小包子 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="xbz">
+    
+    
+
+    <meta name="description" content="当我最开始接触setTimeout的时候，没觉得这个函数有什么，后来在码代码、面试的过程才慢慢踩中一些坑，然后再去网上找了很多文章来看，发现setTimeout里面的水很挺深。借这篇文章，我希望能够比较全面的展现setTimeout常见的疑点，同时也帮助自己梳理思路。   setTimeout是什么setTimeout(Func, time) 是指定一个时长（单位是毫秒），等待这一段时长过后调用F">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="细说setTimeout、this指针 | 一笼小包子">
+<meta property="og:url" content="http://yoursite.com/2018/02/07/细说setTimeout、this指针/index.html">
+<meta property="og:site_name" content="一笼小包子">
+<meta property="og:description" content="当我最开始接触setTimeout的时候，没觉得这个函数有什么，后来在码代码、面试的过程才慢慢踩中一些坑，然后再去网上找了很多文章来看，发现setTimeout里面的水很挺深。借这篇文章，我希望能够比较全面的展现setTimeout常见的疑点，同时也帮助自己梳理思路。   setTimeout是什么setTimeout(Func, time) 是指定一个时长（单位是毫秒），等待这一段时长过后调用F">
+<meta property="og:updated_time" content="2018-02-11T09:20:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="细说setTimeout、this指针 | 一笼小包子">
+<meta name="twitter:description" content="当我最开始接触setTimeout的时候，没觉得这个函数有什么，后来在码代码、面试的过程才慢慢踩中一些坑，然后再去网上找了很多文章来看，发现setTimeout里面的水很挺深。借这篇文章，我希望能够比较全面的展现setTimeout常见的疑点，同时也帮助自己梳理思路。   setTimeout是什么setTimeout(Func, time) 是指定一个时长（单位是毫秒），等待这一段时长过后调用F">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">一笼小包子</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          江山代有才人出，各领风骚数百年
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xijiezhong" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">细说setTimeout、this指针</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-02-07" class="post-meta__date date">2018-02-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JS/">JS</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>当我最开始接触setTimeout的时候，没觉得这个函数有什么，后来在码代码、面试的过程才慢慢踩中一些坑，然后再去网上找了很多文章来看，发现setTimeout里面的水很挺深。借这篇文章，我希望能够比较全面的展现setTimeout常见的疑点，同时也帮助自己梳理思路。  </p>
+<h3 id="setTimeout是什么"><a href="#setTimeout是什么" class="headerlink" title="setTimeout是什么"></a>setTimeout是什么</h3><p>setTimeout(Func, time) 是指定一个时长（单位是毫秒），等待这一段时长过后调用Func函数。<br>setTimeout返回一个标识该定时器的id值，使用clearTimeout传入id值就可以提前清除该定时器。</p>
+<h3 id="setTimeout属于谁"><a href="#setTimeout属于谁" class="headerlink" title="setTimeout属于谁"></a>setTimeout属于谁</h3><p>我们在调用setTimeout常常是直接使用setTimeout(…),但其实setTimeout是某一个对象的方法。该对象就是全局对象。<br>而全局对象跟JS的运行环境有关。在浏览器中，全局对象是window对象。在nodeJs中，全局对象是global对象。<br>所以，在浏览器环境中，我们直接调用setTimeout是省略了window对象，其实在后台是window.setTimeout.<br>那么这里有一个问题：能不能使用非全局对象调用setTimeout方法呢？请看下面一段代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">obj.setTimeout = setTimeout;</span><br><span class="line">obj.setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"111"</span>)</span><br><span class="line">&#125;,<span class="number">100</span>);</span><br></pre></td></tr></table></figure></p>
+<p>你觉得这段代码能正常运行吗？</p>
+<p>事实是在node环境中可以正常运行，但在chrome浏览器中会报错</p>
+<blockquote>
+<p>Uncaught TypeError: Illegal invocation at test.html:51</p>
+</blockquote>
+<p>可以看出浏览器下setTimeout只能由window对象调用</p>
+<h3 id="setTimeout的常见调用方式"><a href="#setTimeout的常见调用方式" class="headerlink" title="setTimeout的常见调用方式"></a>setTimeout的常见调用方式</h3><p>setTimeout(func||code, delay)接收两个参数，第一个参数是延迟执行的函数名，或者一段代码，第二个参数是延迟的毫秒数<br>给几个示例<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="string">'console.log("hello world")'</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'hello world'</span>)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'hello world'</span>)</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(a, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>既然setTimeout第一个参数既可以是函数名，又可以是字符串，那么setTimeout(func,10)与setTimeout(‘func()’,10)这两种调用方式有何区别呢。<br>我们来看一段代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'outer'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">container</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'inner'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  setTimeout(b,<span class="number">1000</span>)</span><br><span class="line">  setTimeout(<span class="string">'b()'</span>,<span class="number">5000</span>)</span><br><span class="line">&#125;</span><br><span class="line">container()</span><br></pre></td></tr></table></figure></p>
+<p>请问上面这段代码控制台会输出什么呢？<br>答案是先输出inner，再输出outer。<br>由此，我们可以看出第一个参数带引号和不带引号的区别在于其回调函数执行的作用域不同。<br>当是字符串时，引擎会调用eval()执行，其环境是全局，所以不能访问函数作用域内的局部变量。<br>当是函数时，则执行该函数，可以访问到该函数作用域链上的变量。<br>因此，建议第一个参数使用函数比较安全。</p>
+<p>有时候会希望往setTimeout的回调函数里面传参，可以像下面这样写<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="function"><span class="keyword">function</span> (<span class="params">first, second</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(first + second)</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(<span class="string">'sum(a,b)'</span>,<span class="number">3000</span>);</span><br><span class="line">setTimeout(sum,<span class="number">6000</span>,a,b);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  sum(a,b)</span><br><span class="line">&#125;,<span class="number">9000</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="setTimeout与this指针"><a href="#setTimeout与this指针" class="headerlink" title="setTimeout与this指针"></a>setTimeout与this指针</h3><p>在JS中，this一直指向调用当前函数代码的对象。在全局作用域中，this指向全局对象.<br>在setTimeout的回调函数中，其this指针始终指向window对象。我们跑一段程序看看效果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'outer'</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'inner'</span>,</span><br><span class="line">  getA: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.getA() <span class="comment">// 先打印inner，再打印outer</span></span><br></pre></td></tr></table></figure></p>
+<p>如果我们需要setTimeout回调函数的this指向正确的对象时，通常可以采用三种办法。</p>
+<p>1.将this赋给另一个变量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'outer'</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'inner'</span>,</span><br><span class="line">  getA: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span></span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(that.a)</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.getA() <span class="comment">// inner</span></span><br></pre></td></tr></table></figure></p>
+<p>这种方法是通过闭包去访问保存了this值的局部变量that</p>
+<p>2.bind()<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'outer'</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'inner'</span>,</span><br><span class="line">  getA: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">    &#125;.bind(<span class="keyword">this</span>),<span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.getA() <span class="comment">// inner</span></span><br></pre></td></tr></table></figure></p>
+<p>bind()可以将函数绑定在某个对象上</p>
+<p>3.ES6的箭头函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'outer'</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'inner'</span>,</span><br><span class="line">  getA: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.getA() <span class="comment">// inner</span></span><br></pre></td></tr></table></figure></p>
+<p>箭头函数中的this指针总是指向函数定义时的对象。</p>
+<h3 id="setTimeout与异步-event-loop"><a href="#setTimeout与异步-event-loop" class="headerlink" title="setTimeout与异步/event loop"></a>setTimeout与异步/event loop</h3><p>通常情况下，我们使用setTimeout都是希望去异步的在未来某个时刻执行某段代码。<br>那么setTimeout是真的异步吗？setTimeout会如我们所愿的非常精确的去执行这些动作吗？要回答以上问题，我们需要先理解JS在浏览器下的执行模式。</p>
+<p>首先，众所周知，JS是单线程执行的，异步明显和单线程不能共存。为了实现异步，浏览器采用了事件循环机制和任务队列。</p>
+<p>任务队列里面保存了JS未来需要执行的任务。<br>事件循环是指浏览器会不停的从任务队列中取任务去执行，只有在当前任务执行完后才会继续从任务队列中取任务并执行。JS的执行就是这种循环模式。</p>
+<p>而setTimeout并不是精确的在未来某个时间执行回调函数，而是在一段时间后将代码放到任务队列末尾。如果时间设置为0，则表示立即插入，而不是立即执行。<br>为了展示这种机制，我们看一段代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'first'</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'second'</span>)</span><br><span class="line"><span class="comment">// 输出second first</span></span><br></pre></td></tr></table></figure></p>
+<p>因此，在一些情况下，setTimeout回调函数执行的时间并不精确等于我们所设定的时间，而是会大于该时间。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
