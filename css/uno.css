@@ -982,7 +982,9 @@ h5 {
 
 p {
   margin-bottom: 1.3em;
-  line-height: 1.7em; }
+  line-height: 1.7em;
+  text-indent: 2em;
+}
 
 strong {
   font-weight: bold; }
@@ -1699,5 +1701,5 @@ th, td {
   border: none;
 }
 pre {
-  font-family: 
+  font-family: 'entypo-social'
 }
