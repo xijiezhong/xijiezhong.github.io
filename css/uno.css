@@ -981,6 +981,7 @@ h5 {
   font-size: 1em; }
 
 p {
+  text-indent: 2em;
   margin-bottom: 1.3em;
   line-height: 1.7em; }
 
@@ -1699,5 +1700,5 @@ th, td {
   border: none;
 }
 pre {
-  font-family: 
+  font-family: 'entypo-social';
 }
