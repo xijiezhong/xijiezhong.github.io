@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      文本布局 | 一笼小包子 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="xbz">
+    
+    
+
+    <meta name="description" content="最近工作上遇到了一个需求，展示一段文本。不要小看文本的展示，它不仅仅是把一段文本平铺到页面，其中涉及到水平居中、垂直居中、文本长度限制等css问题，涉及到的知识点还是挺多的。下面，我将通过一个需求的不断扩展来一一讲解这些知识点。 水平居中 需求：让文本水平居中  方法：文本的父元素设置text-align：center  注意点：如果文本是处于行内元素（如span标签）内，那么对父元素设置text">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文本布局 | 一笼小包子">
+<meta property="og:url" content="http://yoursite.com/2020/05/23/文本布局/index.html">
+<meta property="og:site_name" content="一笼小包子">
+<meta property="og:description" content="最近工作上遇到了一个需求，展示一段文本。不要小看文本的展示，它不仅仅是把一段文本平铺到页面，其中涉及到水平居中、垂直居中、文本长度限制等css问题，涉及到的知识点还是挺多的。下面，我将通过一个需求的不断扩展来一一讲解这些知识点。 水平居中 需求：让文本水平居中  方法：文本的父元素设置text-align：center  注意点：如果文本是处于行内元素（如span标签）内，那么对父元素设置text">
+<meta property="og:updated_time" content="2020-05-23T07:24:49.668Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文本布局 | 一笼小包子">
+<meta name="twitter:description" content="最近工作上遇到了一个需求，展示一段文本。不要小看文本的展示，它不仅仅是把一段文本平铺到页面，其中涉及到水平居中、垂直居中、文本长度限制等css问题，涉及到的知识点还是挺多的。下面，我将通过一个需求的不断扩展来一一讲解这些知识点。 水平居中 需求：让文本水平居中  方法：文本的父元素设置text-align：center  注意点：如果文本是处于行内元素（如span标签）内，那么对父元素设置text">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">一笼小包子</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          江山代有才人出，各领风骚数百年
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xijiezhong" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">文本布局</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2020-05-23" class="post-meta__date date">2020-05-23</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>最近工作上遇到了一个需求，展示一段文本。不要小看文本的展示，它不仅仅是把一段文本平铺到页面，其中涉及到水平居中、垂直居中、文本长度限制等css问题，涉及到的知识点还是挺多的。下面，我将通过一个需求的不断扩展来一一讲解这些知识点。</p>
+<h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><ul>
+<li><p>需求：让文本水平居中</p>
+</li>
+<li><p>方法：文本的父元素设置text-align：center</p>
+</li>
+<li><p>注意点：如果文本是处于行内元素（如span标签）内，那么对父元素设置text-align:center是不起作用的。只能对块级元素或者设置了宽度的内联块级元素设置text-align才能起作用。</p>
+</li>
+</ul>
+<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><ol>
+<li>需求：单行文本垂直居中</li>
+</ol>
+<ul>
+<li><p>方法：line-height</p>
+</li>
+<li><p>解析：当文本只有一行时，只需将文本的行高与容器的高度设置为相同即可。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">height: 20px;</span><br><span class="line">line-height: 20px;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>需求：多行文本垂直居中</li>
+</ol>
+<p>对于多行文本，单纯设置line-height的方法就无法达到垂直居中的效果了。下面介绍几种方法</p>
+<ul>
+<li>表格法</li>
+</ul>
+<p>父元素使用display:table，子元素使用display:table-cell属性来模拟表格，然后子元素设置vertical-align:middle即可垂直居中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">  display: table;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  display: table-cell;</span><br><span class="line">  vertical-align: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>padding法</li>
+</ul>
+<p>对于不定高的块级元素，可以通过设置padding-top和padding-bottom相等来达到文本垂直居中的效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">  padding-top: 20px;</span><br><span class="line">  padding-bottom: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>flex布局</li>
+</ul>
+<p>使用flex布局可以很轻松的实现多行文本垂直居中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">   display: flex;</span><br><span class="line">   align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="单行文本超过长度隐藏-显示省略号"><a href="#单行文本超过长度隐藏-显示省略号" class="headerlink" title="单行文本超过长度隐藏,显示省略号"></a>单行文本超过长度隐藏,显示省略号</h3><ul>
+<li><p>需求：页面的可视区域是有限的，当文本过长无法展示完全的时候，常需要在文本尾部省略一些内容，并显示省略号</p>
+</li>
+<li><p>方法</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">   white-space:nowrap;</span><br><span class="line">　　overflow:hidden;</span><br><span class="line">　　text-overflow:ellipsis;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="多行文本超出长度-显示省略号在段尾"><a href="#多行文本超出长度-显示省略号在段尾" class="headerlink" title="多行文本超出长度,显示省略号在段尾"></a>多行文本超出长度,显示省略号在段尾</h3><p>上面一种方法仅在单行文本时有效，要是变成多行文本，就需要用到一些不太常见的方法</p>
+<ul>
+<li>-webkit-line-clamp</li>
+</ul>
+<p>-webkit-line-clamp是webkit的私有属性，是一个不属于css规范草案的属性，用来限制一个块元素显示的文本行数，需要结合display:-webkit-box和-webkit-box-orient属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">　  display: -webkit-box;</span><br><span class="line">　　-webkit-box-orient: vertical;</span><br><span class="line">　　-webkit-line-clamp: 3;</span><br><span class="line">　　overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个属性用起来好用，不过兼容性不是那么好，IE以及一些低版本的firefox等浏览器并没有支持该属性。</p>
+<ul>
+<li>通过伪类来设置背景遮挡文字</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">p&#123;</span><br><span class="line">　　position: relative;</span><br><span class="line">　　line-height: 20px;</span><br><span class="line">　　max-height: 80px;</span><br><span class="line">　　overflow: hidden;</span><br><span class="line">　　width: 200px;</span><br><span class="line">&#125;</span><br><span class="line">p::after&#123;</span><br><span class="line">　　content: &quot;...&quot;;</span><br><span class="line">　　position: absolute;</span><br><span class="line">　　bottom: 0;</span><br><span class="line">　　font-size: 18px;</span><br><span class="line">　　right: 7px; </span><br><span class="line">　　padding-right: 124px;</span><br><span class="line">　　background: -webkit-linear-gradient(left, transparent, #fff 0%);</span><br><span class="line">　　background: -o-linear-gradient(right, transparent, #fff 0%);</span><br><span class="line">　　background: -moz-linear-gradient(right, transparent, #fff 0%);</span><br><span class="line">　　background: linear-gradient(to right, transparent, #fff 0%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法的弊端就是在文本未超出的时候也会显示省略号，可以结合JS进行优化。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可以看到，要在页面上良好的展示文本并非一件易事，需要对多种属性及css规则进行深入的研究。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

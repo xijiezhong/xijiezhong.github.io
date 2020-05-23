@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      cookie、localStorage、sessionStorage辨析 | 一笼小包子 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="xbz">
+    
+    
+
+    <meta name="description" content="cookie什么是cookiecookie是存储在客户端的一小段文本信息，以key-value的格式保存。 cookie的工作流程 浏览器发送请求 服务器收到请求后，发送一个包含Set-Cookie头部的响应到浏览器 浏览器保存cookie，并在之后向该服务器发送的请求钟携带cookie头部 服务器收到含有cookie的请求后返回数据。  如何操作cookie通过document.cookie可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cookie、localStorage、sessionStorage辨析 | 一笼小包子">
+<meta property="og:url" content="http://yoursite.com/2020/05/23/cookie、localStorage、sessionStorage辨析/index.html">
+<meta property="og:site_name" content="一笼小包子">
+<meta property="og:description" content="cookie什么是cookiecookie是存储在客户端的一小段文本信息，以key-value的格式保存。 cookie的工作流程 浏览器发送请求 服务器收到请求后，发送一个包含Set-Cookie头部的响应到浏览器 浏览器保存cookie，并在之后向该服务器发送的请求钟携带cookie头部 服务器收到含有cookie的请求后返回数据。  如何操作cookie通过document.cookie可以">
+<meta property="og:updated_time" content="2020-05-23T07:24:49.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cookie、localStorage、sessionStorage辨析 | 一笼小包子">
+<meta name="twitter:description" content="cookie什么是cookiecookie是存储在客户端的一小段文本信息，以key-value的格式保存。 cookie的工作流程 浏览器发送请求 服务器收到请求后，发送一个包含Set-Cookie头部的响应到浏览器 浏览器保存cookie，并在之后向该服务器发送的请求钟携带cookie头部 服务器收到含有cookie的请求后返回数据。  如何操作cookie通过document.cookie可以">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">一笼小包子</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          江山代有才人出，各领风骚数百年
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xijiezhong" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">cookie、localStorage、sessionStorage辨析</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2020-05-23" class="post-meta__date date">2020-05-23</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><h4 id="什么是cookie"><a href="#什么是cookie" class="headerlink" title="什么是cookie"></a>什么是cookie</h4><p>cookie是存储在客户端的一小段文本信息，以key-value的格式保存。</p>
+<h4 id="cookie的工作流程"><a href="#cookie的工作流程" class="headerlink" title="cookie的工作流程"></a>cookie的工作流程</h4><ol>
+<li>浏览器发送请求</li>
+<li>服务器收到请求后，发送一个包含Set-Cookie头部的响应到浏览器</li>
+<li>浏览器保存cookie，并在之后向该服务器发送的请求钟携带cookie头部</li>
+<li>服务器收到含有cookie的请求后返回数据。</li>
+</ol>
+<h4 id="如何操作cookie"><a href="#如何操作cookie" class="headerlink" title="如何操作cookie"></a>如何操作cookie</h4><p>通过document.cookie可以设置和获取Cookie的值</p>
+<h4 id="cookie的生命周期"><a href="#cookie的生命周期" class="headerlink" title="cookie的生命周期"></a>cookie的生命周期</h4><p>cookie可以设置过期时间</p>
+<ul>
+<li>如果不设置过期时间，则表示该cookie的生命周期为浏览器会话期间，一旦关闭浏览器窗口，cookie就消失了</li>
+<li>如果设置了过期时间，cookie的生命周期就是这个过期时间</li>
+<li>过期时间设置为0，代表立即删除该cookie</li>
+</ul>
+<h4 id="cookie的限制"><a href="#cookie的限制" class="headerlink" title="cookie的限制"></a>cookie的限制</h4><p>各个浏览器对cookie的大小都有限制，一般为4K。对每个域名所包含的cookie数也有限制，但该值各浏览器并不统一。</p>
+<h3 id="LocalStorage"><a href="#LocalStorage" class="headerlink" title="LocalStorage"></a>LocalStorage</h3><h4 id="什么是localStorage"><a href="#什么是localStorage" class="headerlink" title="什么是localStorage"></a>什么是localStorage</h4><p>localStorage是HTML5新加入的特性，用来作为本地存储使用，解决了cookie存储空间不足的问题。</p>
+<h4 id="如何操作localStorage"><a href="#如何操作localStorage" class="headerlink" title="如何操作localStorage"></a>如何操作localStorage</h4><ul>
+<li>保存：localStorage.setItem(‘key’, ‘value’)</li>
+<li>读取：localStorage.getItem(‘key’)</li>
+<li>删除：localStorage.removeItem(‘key’)</li>
+</ul>
+<h4 id="localStorage的生命周期"><a href="#localStorage的生命周期" class="headerlink" title="localStorage的生命周期"></a>localStorage的生命周期</h4><p>生命周期为永久，除非主动删除数据，否则数据并不会因为浏览器关闭而消失。</p>
+<h4 id="localStorage的优点"><a href="#localStorage的优点" class="headerlink" title="localStorage的优点"></a>localStorage的优点</h4><p>一般浏览器支持5M大小，拓宽了cookie的大小限制</p>
+<h4 id="localStorage的缺点"><a href="#localStorage的缺点" class="headerlink" title="localStorage的缺点"></a>localStorage的缺点</h4><p>有的低版本浏览器还未支持该特性（如IE8以下）</p>
+<h3 id="SessionStorage"><a href="#SessionStorage" class="headerlink" title="SessionStorage"></a>SessionStorage</h3><h4 id="什么是sessionStorage"><a href="#什么是sessionStorage" class="headerlink" title="什么是sessionStorage"></a>什么是sessionStorage</h4><p>sessionStorage是HTML5新加入的特性，用于临时保存同一窗口（或标签页）的数据，在关闭窗口或标签页之后将会删除这些数据。</p>
+<h4 id="如何操作sessionStorage"><a href="#如何操作sessionStorage" class="headerlink" title="如何操作sessionStorage"></a>如何操作sessionStorage</h4><ul>
+<li>保存：sessionStorage.setItem(“key”, “value”)</li>
+<li>读取：sessionStorage.getItem(“key”)</li>
+<li>删除：sessionStorage.removeItem(“key”)</li>
+<li>删除所有数据：sessionStorage.clear()</li>
+</ul>
+<h4 id="sessionStorage的生命周期"><a href="#sessionStorage的生命周期" class="headerlink" title="sessionStorage的生命周期"></a>sessionStorage的生命周期</h4><p>只保存在当前会话期间，保存在sessionStorage里的数据在页面会话结束时会被清除</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
