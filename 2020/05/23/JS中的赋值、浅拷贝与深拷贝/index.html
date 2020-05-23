@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JS中的赋值、浅拷贝与深拷贝 | 一笼小包子 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="xbz">
+    
+    
+
+    <meta name="description" content="赋值、浅拷贝与深拷贝拷贝是写代码中经常使用的方法。浅拷贝与深拷贝是指拷贝的两种情况。本文将深入探究下JS的赋值、浅拷贝与深拷贝。 数据类型在探究深拷贝与浅拷贝之前，我们先梳理一下JS的数据类型。在JavaScript中，数据类型有两大类。一类是基本数据类型，一类是引用数据类型。 基本数据类型有五种：number、string、boolean、null、undefined。基本数据类型存放在栈中。存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS中的赋值、浅拷贝与深拷贝 | 一笼小包子">
+<meta property="og:url" content="http://yoursite.com/2020/05/23/JS中的赋值、浅拷贝与深拷贝/index.html">
+<meta property="og:site_name" content="一笼小包子">
+<meta property="og:description" content="赋值、浅拷贝与深拷贝拷贝是写代码中经常使用的方法。浅拷贝与深拷贝是指拷贝的两种情况。本文将深入探究下JS的赋值、浅拷贝与深拷贝。 数据类型在探究深拷贝与浅拷贝之前，我们先梳理一下JS的数据类型。在JavaScript中，数据类型有两大类。一类是基本数据类型，一类是引用数据类型。 基本数据类型有五种：number、string、boolean、null、undefined。基本数据类型存放在栈中。存">
+<meta property="og:updated_time" content="2020-05-23T07:18:31.905Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS中的赋值、浅拷贝与深拷贝 | 一笼小包子">
+<meta name="twitter:description" content="赋值、浅拷贝与深拷贝拷贝是写代码中经常使用的方法。浅拷贝与深拷贝是指拷贝的两种情况。本文将深入探究下JS的赋值、浅拷贝与深拷贝。 数据类型在探究深拷贝与浅拷贝之前，我们先梳理一下JS的数据类型。在JavaScript中，数据类型有两大类。一类是基本数据类型，一类是引用数据类型。 基本数据类型有五种：number、string、boolean、null、undefined。基本数据类型存放在栈中。存">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">一笼小包子</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          江山代有才人出，各领风骚数百年
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/xijiezhong" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JS中的赋值、浅拷贝与深拷贝</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2020-05-23" class="post-meta__date date">2020-05-23</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="赋值、浅拷贝与深拷贝"><a href="#赋值、浅拷贝与深拷贝" class="headerlink" title="赋值、浅拷贝与深拷贝"></a>赋值、浅拷贝与深拷贝</h1><p>拷贝是写代码中经常使用的方法。浅拷贝与深拷贝是指拷贝的两种情况。本文将深入探究下JS的赋值、浅拷贝与深拷贝。</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>在探究深拷贝与浅拷贝之前，我们先梳理一下JS的数据类型。在JavaScript中，数据类型有两大类。一类是基本数据类型，一类是引用数据类型。</p>
+<p>基本数据类型有五种：number、string、boolean、null、undefined。基本数据类型存放在栈中。存放在栈中的数据具有数据大小确定，内存空间大小可以分配、直接按值存放的特点。所以存放在栈中的数据可以直接访问。在JavaScript中，基本的数据类型值是不可更改的。可能这一点不符合我们平常的使用认知。我们在修改字符串或其他基本数据类型变量时，实际上是返回了一个新的值，而不是【改变】原始值。</p>
+<p>而对于引用数据类型，是存放在堆内存中。引用数据类型的变量并不是存放的实际值，而是一个存放在栈内存的指针，该指针指向堆内存中的某个地址。每个数据所占的空间大小不一致，需要根据情况进行特定的分配。与基本数据类型不同，引用类型的值是可以改变的。</p>
+<h3 id="赋值：传值与传址"><a href="#赋值：传值与传址" class="headerlink" title="赋值：传值与传址"></a>赋值：传值与传址</h3><p>有了对JavaScript数据类型的一定了解后，我们接下来看看不同类型的数据类型在赋值时的区别。</p>
+<p>对于基本数据类型来说，当我们进行赋值操作（=）时，实际上是在内存中新开一段栈内存，然后再将值赋值到新的栈中。</p>
+<p>举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let a = 1</span><br><span class="line">let b = a</span><br><span class="line">a = 5</span><br><span class="line">console.log(a) // 5</span><br><span class="line">console.log(b) // 1</span><br></pre></td></tr></table></figure>
+<p>对于上述语句，b变量虽然是a变量的复制，但与a变量是独立互不影响的变量。</p>
+<p>而对于引用数据类型来说，在进行赋值操作时，实际上是把变量的地址传给了另一个变量，所以称为传址。传址之后，两个变量就指向同一个地址，两者的操作是互有影响的。</p>
+<p>例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let a = &#123; age: 12 &#125;</span><br><span class="line">let b = a</span><br><span class="line"></span><br><span class="line">a.age = 13</span><br><span class="line">console.log(a.age) // 13</span><br><span class="line">console.log(b.age) // 13</span><br><span class="line"></span><br><span class="line">b.age = 14</span><br><span class="line">console.log(a.age) // 14</span><br><span class="line">console.log(b.age) // 14</span><br></pre></td></tr></table></figure>
+<h3 id="浅拷贝与深拷贝"><a href="#浅拷贝与深拷贝" class="headerlink" title="浅拷贝与深拷贝"></a>浅拷贝与深拷贝</h3><p>只有当拷贝引用数据类型时，拷贝才存在浅拷贝与深拷贝之分。</p>
+<h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><p>浅拷贝就是指创建一个新对象，该对象拥有原始对象第一层属性的精确拷贝。即：如果原始对象的属性是基本类型数据，则拷贝的就是基本数据类型的值；如果原始对象的属性是引用类型，则拷贝的是内存地址。当原始对象的引用类型属性发生改变时，拷贝对象的对应属性值也会发生变化。这里需要强调一下，浅拷贝与赋值是有所区别的，赋值时与原数据指向同一对象，而浅拷贝则指向了不同对象。</p>
+<p>让我们来实现一个浅拷贝方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function shallowCopy(src) &#123;</span><br><span class="line">  const dist = &#123;&#125;;</span><br><span class="line">  for (let prop in src) &#123;</span><br><span class="line">    if (src.hasOwnProperty(prop)) &#123;</span><br><span class="line">      dist[prop] = src[prop]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return dist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><p>浅拷贝是对原始对象第一层属性的精确拷贝，而深拷贝则是对原始对象所有层级属性的递归精确拷贝。</p>
+<h3 id="深拷贝的实现"><a href="#深拷贝的实现" class="headerlink" title="深拷贝的实现"></a>深拷贝的实现</h3><h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function deepCopy (src) &#123;</span><br><span class="line">    let temp = JSON.stringify(src)</span><br><span class="line">    let dist = JSON.parse(temp)</span><br><span class="line">    return dist</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function deepCopy (src) &#123;</span><br><span class="line">    if (typeof src !== &apos;object&apos;) &#123;</span><br><span class="line">       return src</span><br><span class="line">    &#125;</span><br><span class="line">    if (src == null) &#123;</span><br><span class="line">       return null</span><br><span class="line">    &#125;</span><br><span class="line">    let dist = Array.isArray(src) ? [] : &#123;&#125;;</span><br><span class="line">    if (src &amp;&amp; typeof src === &quot;object&quot;) &#123;</span><br><span class="line">      for (let prop in src) &#123;</span><br><span class="line">        if (src.hasOwnProperty(prop)) &#123;</span><br><span class="line">          // 如果子属性为引用数据类型，递归复制</span><br><span class="line">          if (src[prop] &amp;&amp; typeof src[prop] === &quot;object&quot;) &#123;</span><br><span class="line">            dist[prop] = deepCopy(src[prop])</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            // 如果是基本数据类型，只是简单的复制</span><br><span class="line">            dist[prop] = src[prop]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dist</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
